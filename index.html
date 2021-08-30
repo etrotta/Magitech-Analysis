@@ -1,0 +1,116 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>The relationship between Ingredients and Effects.</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 90%;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "teal", "id": "Cornflower", "label": "Cornflower", "shape": "dot", "size": 10}, {"color": "teal", "id": "Purified Vinteum Dust", "label": "Purified Vinteum Dust", "shape": "dot", "size": 10}, {"color": "teal", "id": "Ender Eye", "label": "Ender Eye", "shape": "dot", "size": 10}, {"color": "teal", "id": "Lily Pad", "label": "Lily Pad", "shape": "dot", "size": 10}, {"color": "teal", "id": "Tarma Root", "label": "Tarma Root", "shape": "dot", "size": 10}, {"color": "teal", "id": "Dandelion", "label": "Dandelion", "shape": "dot", "size": 10}, {"color": "teal", "id": "Glowstone Dust", "label": "Glowstone Dust", "shape": "dot", "size": 10}, {"color": "teal", "id": "Magma Cream", "label": "Magma Cream", "shape": "dot", "size": 10}, {"color": "teal", "id": "Honey Bottle", "label": "Honey Bottle", "shape": "dot", "size": 10}, {"color": "teal", "id": "Slime Ball", "label": "Slime Ball", "shape": "dot", "size": 10}, {"color": "teal", "id": "Spider Eye", "label": "Spider Eye", "shape": "dot", "size": 10}, {"color": "teal", "id": "Blaze Rod", "label": "Blaze Rod", "shape": "dot", "size": 10}, {"color": "teal", "id": "Blue Orchid", "label": "Blue Orchid", "shape": "dot", "size": 10}, {"color": "teal", "id": "Red Mushroom", "label": "Red Mushroom", "shape": "dot", "size": 10}, {"color": "teal", "id": "Sugar", "label": "Sugar", "shape": "dot", "size": 10}, {"color": "teal", "id": "Wither Rose", "label": "Wither Rose", "shape": "dot", "size": 10}, {"color": "teal", "id": "Cobweb", "label": "Cobweb", "shape": "dot", "size": 10}, {"color": "teal", "id": "Wakebloom", "label": "Wakebloom", "shape": "dot", "size": 10}, {"color": "teal", "id": "Kelp", "label": "Kelp", "shape": "dot", "size": 10}, {"color": "teal", "id": "Beetroot", "label": "Beetroot", "shape": "dot", "size": 10}, {"color": "teal", "id": "Lily Of The Valley", "label": "Lily Of The Valley", "shape": "dot", "size": 10}, {"color": "teal", "id": "Crimson Fungus", "label": "Crimson Fungus", "shape": "dot", "size": 10}, {"color": "teal", "id": "Ghast Tear", "label": "Ghast Tear", "shape": "dot", "size": 10}, {"color": "teal", "id": "Allium", "label": "Allium", "shape": "dot", "size": 10}, {"color": "teal", "id": "Oxeye Daisy", "label": "Oxeye Daisy", "shape": "dot", "size": 10}, {"color": "teal", "id": "Golden Carrot", "label": "Golden Carrot", "shape": "dot", "size": 10}, {"color": "teal", "id": "Vinteum Dust", "label": "Vinteum Dust", "shape": "dot", "size": 10}, {"color": "teal", "id": "Poppy", "label": "Poppy", "shape": "dot", "size": 10}, {"color": "teal", "id": "Cerublossom", "label": "Cerublossom", "shape": "dot", "size": 10}, {"color": "teal", "id": "Nether Wart", "label": "Nether Wart", "shape": "dot", "size": 10}, {"color": "teal", "id": "Blaze Powder", "label": "Blaze Powder", "shape": "dot", "size": 10}, {"color": "teal", "id": "Feather", "label": "Feather", "shape": "dot", "size": 10}, {"color": "teal", "id": "Sweet Berries", "label": "Sweet Berries", "shape": "dot", "size": 10}, {"color": "teal", "id": "Warped Fungus", "label": "Warped Fungus", "shape": "dot", "size": 10}, {"color": "teal", "id": "Azure Bluet", "label": "Azure Bluet", "shape": "dot", "size": 10}, {"color": "teal", "id": "Desert Nova", "label": "Desert Nova", "shape": "dot", "size": 10}, {"color": "teal", "id": "Fermented Spider Eye", "label": "Fermented Spider Eye", "shape": "dot", "size": 10}, {"color": "teal", "id": "Brown Mushroom", "label": "Brown Mushroom", "shape": "dot", "size": 10}, {"color": "teal", "id": "Glistering Melon Slice", "label": "Glistering Melon Slice", "shape": "dot", "size": 10}, {"color": "teal", "id": "Ink Sac", "label": "Ink Sac", "shape": "dot", "size": 10}, {"color": "teal", "id": "Aum", "label": "Aum", "shape": "dot", "size": 10}, {"color": "teal", "id": "Dried Kelp", "label": "Dried Kelp", "shape": "dot", "size": 10}, {"color": "teal", "id": "Rabbit Foot", "label": "Rabbit Foot", "shape": "dot", "size": 10}, {"color": "teal", "id": "Sea Pickle", "label": "Sea Pickle", "shape": "dot", "size": 10}, {"color": "teal", "id": "Phantom Membrane", "label": "Phantom Membrane", "shape": "dot", "size": 10}, {"color": "teal", "id": "Bone", "label": "Bone", "shape": "dot", "size": 10}, {"color": "teal", "id": "Poisonous Potato", "label": "Poisonous Potato", "shape": "dot", "size": 10}, {"color": "purple", "id": "Dolphins Grace", "label": "Dolphins Grace", "shape": "dot", "size": 10}, {"color": "purple", "id": "Invisibility", "label": "Invisibility", "shape": "dot", "size": 10}, {"color": "purple", "id": "Jump Boost", "label": "Jump Boost", "shape": "dot", "size": 10}, {"color": "purple", "id": "Health Boost", "label": "Health Boost", "shape": "dot", "size": 10}, {"color": "purple", "id": "Levitation", "label": "Levitation", "shape": "dot", "size": 10}, {"color": "purple", "id": "Mana Regen", "label": "Mana Regen", "shape": "dot", "size": 10}, {"color": "purple", "id": "Poison", "label": "Poison", "shape": "dot", "size": 10}, {"color": "purple", "id": "Resistance", "label": "Resistance", "shape": "dot", "size": 10}, {"color": "purple", "id": "Conduit Power", "label": "Conduit Power", "shape": "dot", "size": 10}, {"color": "purple", "id": "Blindness", "label": "Blindness", "shape": "dot", "size": 10}, {"color": "purple", "id": "Slowness", "label": "Slowness", "shape": "dot", "size": 10}, {"color": "purple", "id": "Night Vision", "label": "Night Vision", "shape": "dot", "size": 10}, {"color": "purple", "id": "Regeneration", "label": "Regeneration", "shape": "dot", "size": 10}, {"color": "purple", "id": "Mana Boost", "label": "Mana Boost", "shape": "dot", "size": 10}, {"color": "purple", "id": "Wither", "label": "Wither", "shape": "dot", "size": 10}, {"color": "purple", "id": "Instant Mana", "label": "Instant Mana", "shape": "dot", "size": 10}, {"color": "purple", "id": "Strength", "label": "Strength", "shape": "dot", "size": 10}, {"color": "purple", "id": "Mining Fatigue", "label": "Mining Fatigue", "shape": "dot", "size": 10}, {"color": "purple", "id": "Absorption", "label": "Absorption", "shape": "dot", "size": 10}, {"color": "purple", "id": "Instant Health", "label": "Instant Health", "shape": "dot", "size": 10}, {"color": "purple", "id": "Instant Damage", "label": "Instant Damage", "shape": "dot", "size": 10}, {"color": "purple", "id": "Haste", "label": "Haste", "shape": "dot", "size": 10}, {"color": "purple", "id": "Nausea", "label": "Nausea", "shape": "dot", "size": 10}, {"color": "purple", "id": "Hunger", "label": "Hunger", "shape": "dot", "size": 10}, {"color": "purple", "id": "Weakness", "label": "Weakness", "shape": "dot", "size": 10}, {"color": "purple", "id": "Glowing", "label": "Glowing", "shape": "dot", "size": 10}, {"color": "purple", "id": "Speed", "label": "Speed", "shape": "dot", "size": 10}, {"color": "purple", "id": "Slow Falling", "label": "Slow Falling", "shape": "dot", "size": 10}, {"color": "purple", "id": "Luck", "label": "Luck", "shape": "dot", "size": 10}, {"color": "purple", "id": "Unluck", "label": "Unluck", "shape": "dot", "size": 10}, {"color": "purple", "id": "Fire Resistance", "label": "Fire Resistance", "shape": "dot", "size": 10}, {"color": "purple", "id": "Water Breathing", "label": "Water Breathing", "shape": "dot", "size": 10}]);
+        edges = new vis.DataSet([{"from": "Aum", "to": "Instant Mana", "width": 0.25}, {"from": "Aum", "to": "Instant Damage", "width": 0.4}, {"from": "Cerublossom", "to": "Instant Mana", "width": 0.3}, {"from": "Cerublossom", "to": "Hunger", "width": 0.3}, {"from": "Desert Nova", "to": "Mana Boost", "width": 0.5}, {"from": "Desert Nova", "to": "Fire Resistance", "width": 0.25}, {"from": "Desert Nova", "to": "Blindness", "width": 0.4}, {"from": "Purified Vinteum Dust", "to": "Mana Regen", "width": 1}, {"from": "Purified Vinteum Dust", "to": "Mana Boost", "width": 0.5}, {"from": "Tarma Root", "to": "Instant Mana", "width": 0.25}, {"from": "Tarma Root", "to": "Invisibility", "width": 0.3}, {"from": "Tarma Root", "to": "Levitation", "width": 0.5}, {"from": "Vinteum Dust", "to": "Instant Mana", "width": 0.5}, {"from": "Wakebloom", "to": "Instant Mana", "width": 0.1}, {"from": "Wakebloom", "to": "Conduit Power", "width": 0.25}, {"from": "Wakebloom", "to": "Mining Fatigue", "width": 0.5}, {"from": "Allium", "to": "Absorption", "width": 0.5}, {"from": "Allium", "to": "Mining Fatigue", "width": 0.3}, {"from": "Azure Bluet", "to": "Blindness", "width": 0.5}, {"from": "Azure Bluet", "to": "Slow Falling", "width": 0.3}, {"from": "Beetroot", "to": "Instant Health", "width": 0.3}, {"from": "Beetroot", "to": "Poison", "width": 0.5}, {"from": "Blaze Powder", "to": "Haste", "width": 0.5}, {"from": "Blaze Powder", "to": "Instant Damage", "width": 0.5}, {"from": "Blaze Rod", "to": "Fire Resistance", "width": 0.25}, {"from": "Blaze Rod", "to": "Instant Damage", "width": 0.5}, {"from": "Blue Orchid", "to": "Luck", "width": 0.5}, {"from": "Blue Orchid", "to": "Instant Health", "width": 0.3}, {"from": "Bone", "to": "Weakness", "width": 0.5}, {"from": "Bone", "to": "Hunger", "width": 0.5}, {"from": "Bone", "to": "Resistance", "width": 0.4}, {"from": "Brown Mushroom", "to": "Mining Fatigue", "width": 0.5}, {"from": "Brown Mushroom", "to": "Speed", "width": 0.5}, {"from": "Cobweb", "to": "Slowness", "width": 0.35}, {"from": "Cobweb", "to": "Mining Fatigue", "width": 0.25}, {"from": "Cornflower", "to": "Health Boost", "width": 0.1}, {"from": "Cornflower", "to": "Weakness", "width": 0.2}, {"from": "Crimson Fungus", "to": "Fire Resistance", "width": 0.5}, {"from": "Crimson Fungus", "to": "Poison", "width": 0.5}, {"from": "Dandelion", "to": "Unluck", "width": 0.5}, {"from": "Dandelion", "to": "Haste", "width": 0.3}, {"from": "Dandelion", "to": "Resistance", "width": 0.25}, {"from": "Dried Kelp", "to": "Water Breathing", "width": 0.5}, {"from": "Dried Kelp", "to": "Mining Fatigue", "width": 0.5}, {"from": "Ender Eye", "to": "Night Vision", "width": 1}, {"from": "Ender Eye", "to": "Nausea", "width": 0.35}, {"from": "Feather", "to": "Slow Falling", "width": 0.5}, {"from": "Feather", "to": "Slowness", "width": 0.3}, {"from": "Fermented Spider Eye", "to": "Poison", "width": 0.5}, {"from": "Fermented Spider Eye", "to": "Strength", "width": 0.5}, {"from": "Ghast Tear", "to": "Fire Resistance", "width": 0.5}, {"from": "Ghast Tear", "to": "Levitation", "width": 0.5}, {"from": "Glistering Melon Slice", "to": "Glowing", "width": 0.5}, {"from": "Glistering Melon Slice", "to": "Regeneration", "width": 0.15}, {"from": "Glistering Melon Slice", "to": "Luck", "width": 0.1}, {"from": "Glistering Melon Slice", "to": "Mining Fatigue", "width": 0.5}, {"from": "Glowstone Dust", "to": "Glowing", "width": 0.5}, {"from": "Glowstone Dust", "to": "Night Vision", "width": 0.5}, {"from": "Glowstone Dust", "to": "Blindness", "width": 0.5}, {"from": "Golden Carrot", "to": "Glowing", "width": 0.5}, {"from": "Golden Carrot", "to": "Haste", "width": 0.5}, {"from": "Golden Carrot", "to": "Speed", "width": 0.5}, {"from": "Golden Carrot", "to": "Mining Fatigue", "width": 0.5}, {"from": "Honey Bottle", "to": "Slowness", "width": 0.5}, {"from": "Honey Bottle", "to": "Instant Health", "width": 0.5}, {"from": "Ink Sac", "to": "Dolphins Grace", "width": 0.5}, {"from": "Ink Sac", "to": "Blindness", "width": 0.5}, {"from": "Kelp", "to": "Water Breathing", "width": 0.5}, {"from": "Kelp", "to": "Unluck", "width": 0.5}, {"from": "Lily Of The Valley", "to": "Slow Falling", "width": 0.25}, {"from": "Lily Of The Valley", "to": "Haste", "width": 0.25}, {"from": "Lily Pad", "to": "Jump Boost", "width": 1}, {"from": "Magma Cream", "to": "Slowness", "width": 0.5}, {"from": "Magma Cream", "to": "Instant Damage", "width": 0.5}, {"from": "Magma Cream", "to": "Strength", "width": 0.4}, {"from": "Nether Wart", "to": "Health Boost", "width": 0.25}, {"from": "Nether Wart", "to": "Nausea", "width": 0.5}, {"from": "Oxeye Daisy", "to": "Instant Health", "width": 0.25}, {"from": "Oxeye Daisy", "to": "Blindness", "width": 0.35}, {"from": "Oxeye Daisy", "to": "Hunger", "width": 0.4}, {"from": "Phantom Membrane", "to": "Invisibility", "width": 0.5}, {"from": "Phantom Membrane", "to": "Weakness", "width": 0.35}, {"from": "Phantom Membrane", "to": "Hunger", "width": 0.25}, {"from": "Phantom Membrane", "to": "Night Vision", "width": 0.5}, {"from": "Poisonous Potato", "to": "Poison", "width": 0.5}, {"from": "Poppy", "to": "Luck", "width": 0.5}, {"from": "Poppy", "to": "Nausea", "width": 0.3}, {"from": "Rabbit Foot", "to": "Haste", "width": 0.5}, {"from": "Rabbit Foot", "to": "Poison", "width": 0.35}, {"from": "Rabbit Foot", "to": "Hunger", "width": 0.25}, {"from": "Rabbit Foot", "to": "Luck", "width": 0.2}, {"from": "Red Mushroom", "to": "Strength", "width": 0.5}, {"from": "Red Mushroom", "to": "Weakness", "width": 0.5}, {"from": "Sea Pickle", "to": "Dolphins Grace", "width": 1}, {"from": "Slime Ball", "to": "Slowness", "width": 0.5}, {"from": "Slime Ball", "to": "Jump Boost", "width": 0.5}, {"from": "Spider Eye", "to": "Instant Health", "width": 0.3}, {"from": "Spider Eye", "to": "Poison", "width": 0.3}, {"from": "Spider Eye", "to": "Slowness", "width": 0.5}, {"from": "Spider Eye", "to": "Night Vision", "width": 0.5}, {"from": "Sugar", "to": "Haste", "width": 0.5}, {"from": "Sugar", "to": "Speed", "width": 0.5}, {"from": "Sugar", "to": "Nausea", "width": 0.3}, {"from": "Sugar", "to": "Hunger", "width": 0.3}, {"from": "Sweet Berries", "to": "Instant Health", "width": 0.5}, {"from": "Sweet Berries", "to": "Instant Damage", "width": 0.5}, {"from": "Warped Fungus", "to": "Unluck", "width": 0.3}, {"from": "Warped Fungus", "to": "Weakness", "width": 0.7}, {"from": "Warped Fungus", "to": "Regeneration", "width": 0.35}, {"from": "Wither Rose", "to": "Wither", "width": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "repulsion": {
+            "centralGravity": 0.2,
+            "damping": 0.09,
+            "nodeDistance": 160,
+            "springConstant": 0.05,
+            "springLength": 130
+        },
+        "solver": "repulsion",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
